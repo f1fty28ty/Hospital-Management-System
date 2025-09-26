@@ -1,6 +1,7 @@
 -- link to table styling https://docs.google.com/spreadsheets/d/1RDEdzJzPHG6E3xWMCGLrQ5HLsfqTBaq5zk_CzEpqZ2w/edit?usp=sharing
-
--- Patients
+/* ============================================================
+   Core Entities
+   ============================================================ */
 CREATE TABLE Patients(
     patientID INT PRIMARY KEY,
     firstName VARCHAR(100),
@@ -14,8 +15,6 @@ CREATE TABLE Patients(
     dateCreated DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (primaryDoctorID) REFERENCES Doctor(doctorID)
 );
-
--- Employee
 CREATE TABLE Employee(
     employeeID INT PRIMARY KEY,
     firstName VARCHAR(100),
@@ -29,13 +28,14 @@ CREATE TABLE Employee(
     salary DECIMAL(10, 2),
     FOREIGN KEY (departmentID) REFERENCES Department(departmentID)
 );
--- Department
 CREATE TABLE Department(
     departmentID INT PRIMARY KEY,
     departmentName VARCHAR(100),
     location VARCHAR(100),
 );
--- Room
+/* ============================================================
+    Facilities
+   ============================================================ */
 CREATE TABLE Room(
     roomID INT PRIMARY KEY,
     roomNumber char(3),
@@ -44,7 +44,10 @@ CREATE TABLE Room(
     departmentID INT,
     FOREIGN KEY (departmentID) REFERENCES Department(departmentID)
 );
--- Appointment
+
+/* ============================================================
+   Scheduling
+   ============================================================ */
 CREATE TABLE Appointment(
     appointmentID INT PRIMARY KEY,
     patientID INT,
@@ -55,7 +58,6 @@ CREATE TABLE Appointment(
     FOREIGN KEY (patientID) REFERENCES Patients(patientID),
     FOREIGN KEY (doctorID) REFERENCES Employee(employeeID)
 );
--- Care Plan
 CREATE TABLE CarePlan(
     carePlanID INT PRIMARY KEY,
     patientID INT,
@@ -65,7 +67,6 @@ CREATE TABLE CarePlan(
     endDate DATE,
     FOREIGN KEY (patientID) REFERENCES Patients(patientID)
 );
--- DoctorSchedule
 CREATE TABLE DoctorSchedule(
     scheduleID INT PRIMARY KEY,
     doctorID INT,
@@ -74,7 +75,9 @@ CREATE TABLE DoctorSchedule(
     endTime DATETIME,
     FOREIGN KEY (doctorID) REFERENCES Employee(employeeID)
 );
--- Medications
+/* ============================================================
+    Pharmacy
+   ============================================================ */
 CREATE TABLE Medications(
     medicationID INT PRIMARY KEY,
     medicationName VARCHAR(100),
@@ -82,7 +85,6 @@ CREATE TABLE Medications(
     dosage VARCHAR(50),
     sideEffects TEXT
 );
--- Pharmacy Stock
 CREATE TABLE PharmacyStock(
     stockID INT PRIMARY KEY,
     medicationID INT,
@@ -91,7 +93,11 @@ CREATE TABLE PharmacyStock(
     expirationDate DATE,
     FOREIGN KEY (medicationID) REFERENCES Medications(medicationID)
 );
--- Invoice
+-- TODO: Prescriptions
+
+/* ============================================================
+   Billing
+   ============================================================ */
 CREATE TABLE Invoice(
     invoiceID INT PRIMARY KEY,
     patientID INT,
@@ -101,7 +107,6 @@ CREATE TABLE Invoice(
     status ENUM('Paid', 'Unpaid', 'Pending'),
     FOREIGN KEY (patientID) REFERENCES Patients(patientID)
 );
--- Invoice Item
 CREATE TABLE InvoiceItem(
     itemID INT PRIMARY KEY,
     invoiceID INT,
@@ -110,7 +115,11 @@ CREATE TABLE InvoiceItem(
     unitPrice DECIMAL(10, 2),
     FOREIGN KEY (invoiceID) REFERENCES Invoice(invoiceID)
 );
--- Lab Tests
+-- TODO: Insurance, Payments
+
+/* ============================================================
+   Laboratory
+   ============================================================ */
 CREATE TABLE LabTests(
     testID INT PRIMARY KEY,
     testName VARCHAR(100),
@@ -119,7 +128,7 @@ CREATE TABLE LabTests(
     startDate DATE,
     endDate DATE
 );
--- Lab Results
+
 CREATE TABLE LabResults(
     resultID INT PRIMARY KEY,
     labTestID INT,
@@ -134,10 +143,8 @@ CREATE TABLE LabResults(
 
 -- TODO
 
--- Billing
--- Insurance
--- Insurance Providers
--- Pharmacy
+
+
 -- Treatment
 -- Doctors (extension of Employee)
 -- Nurses (extension of Employee)

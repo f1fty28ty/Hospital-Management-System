@@ -12,6 +12,7 @@ CREATE TABLE Patients(
     emergencyContactName VARCHAR(100),
     emergencyContactPhone VARCHAR(15),
     primaryDoctorID INT,
+    -- medicalRecords TEXT?,
     dateCreated DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (primaryDoctorID) REFERENCES Doctor(doctorID)
 );
@@ -33,6 +34,26 @@ CREATE TABLE Department(
     departmentName VARCHAR(100),
     location VARCHAR(100),
 );
+/* ============================================================
+   Facility
+   ============================================================ */
+-- Doctors (extension of Employee)
+-- Nurses (extension of Employee)
+-- Lab Technicians (extension of Employee)
+-- Receptionists (extension of Employee)
+-- Pharmacists (extension of Employee)
+-- Administrative Staff (extension of Employee)
+-- Janitorial Staff (extension of Employee)
+-- Security Staff (extension of Employee)
+-- Maintenance Staff (extension of Employee)
+-- Human Resources Staff (extension of Employee)
+-- IT Staff (extension of Employee)
+
+/* ============================================================
+   Medical Records
+   ============================================================ */
+-- TODO: MedicalHistory, Allergies, Immunizations, Visits, Diagnoses, Treatments, Prescriptions, LabResults
+
 /* ============================================================
     Facilities
    ============================================================ */
@@ -141,19 +162,9 @@ CREATE TABLE LabResults(
     FOREIGN KEY (peformedBy) REFERENCES Employee(employeeID)
 );
 
--- TODO
 
 
 
--- Treatment
--- Doctors (extension of Employee)
--- Nurses (extension of Employee)
--- Lab Technicians (extension of Employee)
--- Receptionists (extension of Employee)
--- Pharmacists (extension of Employee)
--- Administrative Staff (extension of Employee)
--- Janitorial Staff (extension of Employee)
--- Security Staff (extension of Employee)
--- Maintenance Staff (extension of Employee)
--- Human Resources Staff (extension of Employee)
--- IT Staff (extension of Employee)
+
+
+

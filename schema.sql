@@ -53,6 +53,22 @@ CREATE TABLE Department(
    Medical Records
    ============================================================ */
 -- TODO: MedicalHistory, Allergies, Immunizations, Visits, Diagnoses, Treatments, Prescriptions, LabResults
+CREATE TABLE MedicalHistory(
+    historyID INT PRIMARY KEY,
+    patientID INT,
+    allergies TEXT,
+    immunizations TEXT,
+    visits TEXT,
+    diagnoses TEXT,
+    treatments TEXT,
+    prescriptions TEXT,
+    labResults TEXT,
+    FOREIGN KEY (patientID) REFERENCES Patients(patientID),
+    FOREIGN KEY (visits) REFERENCES Appointment(appointmentID),
+    FOREIGN KEY (prescriptions) REFERENCES Prescriptions(prescriptionID),
+    FOREIGN KEY (labResults) REFERENCES LabResults(resultID)
+)
+
 
 /* ============================================================
     Facilities
@@ -112,6 +128,16 @@ CREATE TABLE PharmacyStock(
     batchNumber VARCHAR(50),
     quantity INT,
     expirationDate DATE,
+    FOREIGN KEY (medicationID) REFERENCES Medications(medicationID)
+);
+CREATE TABLE Prescriptions(
+    prescriptionID INT PRIMARY KEY,
+    patientID INT,
+    doctorID INT,
+    medicationID INT,
+    actions TEXT,
+    FOREIGN KEY (patientID) REFERENCES Patients(patientID),
+    FOREIGN KEY (doctorID) REFERENCES Employee(employeeID),
     FOREIGN KEY (medicationID) REFERENCES Medications(medicationID)
 );
 -- TODO: Prescriptions

@@ -29,22 +29,42 @@ CREATE TABLE Employee(
     salary DECIMAL(10, 2),
     FOREIGN KEY (departmentID) REFERENCES Department(departmentID)
 );
--- Doctors (extension of Employee)
--- Nurses (extension of Employee)
--- Lab Technicians (extension of Employee)
--- Receptionists (extension of Employee)
--- Pharmacists (extension of Employee)
--- Administrative Staff (extension of Employee)
--- Janitorial Staff (extension of Employee)
--- Security Staff (extension of Employee)
--- Maintenance Staff (extension of Employee)
--- Human Resources Staff (extension of Employee)
--- IT Staff (extension of Employee)
 -- Department
+CREATE TABLE Department(
+    departmentID INT PRIMARY KEY,
+    departmentName VARCHAR(100),
+    location VARCHAR(100),
+);
 -- Room
+CREATE TABLE Room(
+    roomID INT PRIMARY KEY,
+    roomNumber char(3),
+    type ENUM('General', 'ICU', 'Surgery', 'Maternity', 'Pediatric', 'Private'),
+    status ENUM('Available', 'Occupied', 'Under Maintenance'),
+    departmentID INT,
+    FOREIGN KEY (departmentID) REFERENCES Department(departmentID)
+);
 -- Appointment
--- Treatment
--- Car Plan
+CREATE TABLE Appointment(
+    appointmentID INT PRIMARY KEY,
+    patientID INT,
+    doctorID INT,
+    appointmentDate DATETIME,
+    reason VARCHAR(255),
+    status ENUM('Scheduled', 'Completed', 'Cancelled'),
+    FOREIGN KEY (patientID) REFERENCES Patients(patientID),
+    FOREIGN KEY (doctorID) REFERENCES Employee(employeeID)
+);
+-- Care Plan
+CREATE TABLE CarePlan(
+    carePlanID INT PRIMARY KEY,
+    patientID INT,
+    diagnosis VARCHAR(255),
+    treatmentPlan TEXT,
+    startDate DATE,
+    endDate DATE,
+    FOREIGN KEY (patientID) REFERENCES Patients(patientID)
+);
 -- DoctorSchedule
 -- Medications
 -- Pharmacy Stock
@@ -56,3 +76,17 @@ CREATE TABLE Employee(
 -- Billing
 -- Insurance
 -- Insurance Providers
+
+-- TODO
+-- Treatment
+-- Doctors (extension of Employee)
+-- Nurses (extension of Employee)
+-- Lab Technicians (extension of Employee)
+-- Receptionists (extension of Employee)
+-- Pharmacists (extension of Employee)
+-- Administrative Staff (extension of Employee)
+-- Janitorial Staff (extension of Employee)
+-- Security Staff (extension of Employee)
+-- Maintenance Staff (extension of Employee)
+-- Human Resources Staff (extension of Employee)
+-- IT Staff (extension of Employee)

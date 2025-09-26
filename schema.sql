@@ -6,7 +6,7 @@ CREATE TABLE Patients(
     firstName VARCHAR(100),
     lastName VARCHAR(100),
     DOB DATE,
-    phone VARCHAR(15),
+    phone VARCHAR(15) CHECK (phone LIKE '+%[0-9]%'),
     homeAddress VARCHAR(255),
     emergencyContactName VARCHAR(100),
     emergencyContactPhone VARCHAR(15),
@@ -21,7 +21,7 @@ CREATE TABLE Employee(
     firstName VARCHAR(100),
     lastName VARCHAR(100),
     DOB DATE,
-    phone VARCHAR(15),
+    phone VARCHAR(15) CHECK (phone LIKE '+%[0-9]%'),
     homeAddress VARCHAR(255),
     position ENUM('Doctor', 'Nurse', 'Lab Technician', 'Receptionist', 'Pharmacist', 'Administrative Staff', 'Janitorial Staff', 'Security Staff', 'Maintenance Staff', 'Human Resources Staff', 'IT Staff'),
     departmentID INT,
@@ -66,18 +66,78 @@ CREATE TABLE CarePlan(
     FOREIGN KEY (patientID) REFERENCES Patients(patientID)
 );
 -- DoctorSchedule
+CREATE TABLE DoctorSchedule(
+    scheduleID INT PRIMARY KEY,
+    doctorID INT,
+    dayOfWeek ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'),
+    startTime DATETIME,
+    endTime DATETIME,
+    FOREIGN KEY (doctorID) REFERENCES Employee(employeeID)
+);
 -- Medications
+CREATE TABLE Medications(
+    medicationID INT PRIMARY KEY,
+    medicationName VARCHAR(100),
+    description TEXT,
+    dosage VARCHAR(50),
+    sideEffects TEXT
+);
 -- Pharmacy Stock
--- Pharmacy
+CREATE TABLE PharmacyStock(
+    stockID INT PRIMARY KEY,
+    medicationID INT,
+    batchNumber VARCHAR(50),
+    quantity INT,
+    expirationDate DATE,
+    FOREIGN KEY (medicationID) REFERENCES Medications(medicationID)
+);
 -- Invoice
--- Invoice Items
+CREATE TABLE Invoice(
+    invoiceID INT PRIMARY KEY,
+    patientID INT,
+    invoiceDate DATETIME,
+    totalAmount DECIMAL(10, 2),
+    amountPaid DECIMAL(10, 2),
+    status ENUM('Paid', 'Unpaid', 'Pending'),
+    FOREIGN KEY (patientID) REFERENCES Patients(patientID)
+);
+-- Invoice Item
+CREATE TABLE InvoiceItem(
+    itemID INT PRIMARY KEY,
+    invoiceID INT,
+    description TEXT,
+    quantity DECIMAL(10, 2),
+    unitPrice DECIMAL(10, 2),
+    FOREIGN KEY (invoiceID) REFERENCES Invoice(invoiceID)
+);
 -- Lab Tests
+CREATE TABLE LabTests(
+    testID INT PRIMARY KEY,
+    testName VARCHAR(100),
+    description TEXT,
+    cost DECIMAL(10, 2)
+    startDate DATE,
+    endDate DATE
+);
 -- Lab Results
+CREATE TABLE LabResults(
+    resultID INT PRIMARY KEY,
+    labTestID INT,
+    patientID INT,
+    resultDate DATETIME,
+    results TEXT,
+    peformedBy INT,
+    FOREIGN KEY (testID) REFERENCES LabTests(testID),
+    FOREIGN KEY (patientID) REFERENCES Patients(patientID),
+    FOREIGN KEY (peformedBy) REFERENCES Employee(employeeID)
+);
+
+-- TODO
+
 -- Billing
 -- Insurance
 -- Insurance Providers
-
--- TODO
+-- Pharmacy
 -- Treatment
 -- Doctors (extension of Employee)
 -- Nurses (extension of Employee)

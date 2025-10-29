@@ -1,7 +1,7 @@
 -- MySQL Compatible Schema for Hospital Management System
 -- link to table styling https://docs.google.com/spreadsheets/d/1RDEdzJzPHG6E3xWMCGLrQ5HLsfqTBaq5zk_CzEpqZ2w/edit?usp=sharing
 
-USE hospital_db;
+USE hmsDB;
 
 /* ============================================================
    Core Entities

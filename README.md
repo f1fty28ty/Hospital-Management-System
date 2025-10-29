@@ -20,15 +20,15 @@ This project uses Docker Compose to run MySQL and Adminer.
 2. **Access Adminer (Database Management UI):**
    - Open your browser and go to: http://localhost:8080
    - Login with:
-     - **System:** MySQL
-     - **Server:** mysql
-     - **Username:** hospital_user
-     - **Password:** hospital_password
-     - **Database:** hospital_db
+     - **System:** MySQL (select from dropdown)
+     - **Server:** mysql ⚠️ **NOT** localhost or 127.0.0.1!
+     - **Username:** hmsAdmin
+     - **Password:** hmsPass
+     - **Database:** hmsDB
 
 3. **Connect directly to MySQL (optional):**
    ```bash
-   mysql -h 127.0.0.1 -P 3306 -u hospital_user -phospital_password hospital_db
+   mysql -h 127.0.0.1 -P 3306 -u hmsAdmin -phmsPass hmsDB
    ```
 
 4. **Stop the services:**
@@ -44,9 +44,10 @@ This project uses Docker Compose to run MySQL and Adminer.
 ## File Structure
 
 - `docker-compose.yml` - Docker configuration for MySQL and Adminer
-- `schema.sql` - PostgreSQL-compatible schema (original)
-- `schema_mysql.sql` - MySQL-compatible schema (used by Docker)
-- `seed.sql` - Database seed data (to be populated)
+- `schema_mysql.sql` - MySQL-compatible schema (auto-loaded on startup)
+- `seed.sql` - Database seed data (auto-loaded on startup)
+- `ADMINER_CREDENTIALS.md` - Quick reference for Adminer login credentials
+- `schema.sql` - PostgreSQL-compatible schema (original, not used)
 
 ## Database Schema
 
@@ -73,6 +74,16 @@ You can customize database credentials by editing `docker-compose.yml`:
 
 ## Troubleshooting
 
-- If port 3306 or 8080 is already in use, modify the ports in `docker-compose.yml`
-- View logs: `docker-compose logs -f`
-- Check container status: `docker-compose ps`
+### Common Login Issues
+- **Wrong Server name:** Use `mysql` NOT `localhost` or `127.0.0.1`
+- **Credentials:** See the updated credentials in Section 2 above
+- **Check container names:** Containers should be named `hmsMySQL` and `hmsAdminer`
+
+### Other Commands
+
+- **View logs:** `docker-compose logs -f`
+- **Check container status:** `docker-compose ps`
+- **Restart services:** `docker-compose restart`
+- **Rebuild from scratch:** `docker-compose down -v && docker-compose up -d`
+- **Test MySQL connection:** `docker exec -it hmsMySQL mysql -u hmsAdmin -phmsPass hmsDB -e "SHOW TABLES;"`
+- **If ports 3306 or 8080 are in use:** Modify the ports in `docker-compose.yml`

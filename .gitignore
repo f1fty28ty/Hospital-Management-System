@@ -1,0 +1,21 @@
+# Docker volumes
+mysql_data/
+
+# Docker Compose override files
+docker-compose.override.yml
+
+# Database dumps
+*.sql.gz
+*.sql.bz2
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+

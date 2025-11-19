@@ -19,6 +19,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - hms_network
 
   adminer:
     image: adminer:latest
@@ -31,7 +33,13 @@ services:
         condition: service_healthy
     links:
       - mysql
+    networks:
+      - hms_network
 
 volumes:
   mysql_data:
+
+networks:
+  hms_network:
+    driver: bridge
 

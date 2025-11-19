@@ -1,5 +1,5 @@
 -- ============================================================
--- HOSPITAL MANAGEMENT SYSTEM - DEMO SCRIPT
+-- HOSPITAL MANAGEMENT SYSTEM - DEMO SCRIPT (FIXED)
 -- DDL (Data Definition Language) and DML (Data Manipulation Language)
 -- ============================================================
 
@@ -25,7 +25,16 @@ CREATE TABLE AuditLog (
 DESCRIBE AuditLog;
 
 -- ------------------------------------------------------------
--- DDL 2: ALTER TABLE - Add priority to appointments for triage
+-- DDL 2: ALTER TABLE - Add email column to Patients (FIXED)
+-- ------------------------------------------------------------
+ALTER TABLE Patients 
+ADD COLUMN email VARCHAR(100);
+
+-- Verify the column was added
+DESCRIBE Patients;
+
+-- ------------------------------------------------------------
+-- DDL 3: ALTER TABLE - Add priority to appointments for triage
 -- ------------------------------------------------------------
 ALTER TABLE Appointment 
 ADD COLUMN priority ENUM('Low', 'Medium', 'High', 'Emergency') DEFAULT 'Medium';
@@ -39,7 +48,7 @@ FROM Appointment
 LIMIT 5;
 
 -- ------------------------------------------------------------
--- DDL 3: CREATE INDEX - Speed up patient name searches
+-- DDL 4: CREATE INDEX - Speed up patient name searches
 -- ------------------------------------------------------------
 CREATE INDEX idx_patient_name ON Patients(lastName, firstName);
 
@@ -53,7 +62,7 @@ WHERE lastName LIKE 'B%'
 ORDER BY lastName, firstName;
 
 -- ------------------------------------------------------------
--- DDL 4: CREATE VIEW - Simplify complex appointment queries
+-- DDL 5: CREATE VIEW - Simplify complex appointment queries
 -- ------------------------------------------------------------
 CREATE VIEW ActiveAppointments AS
 SELECT 
@@ -97,8 +106,8 @@ WHERE patientID = LAST_INSERT_ID();
 -- ------------------------------------------------------------
 -- DML 2: UPDATE - Update pharmacy inventory
 -- ------------------------------------------------------------
--- Check current stock before update
-SELECT medicationID, m.medicationName, ps.quantity, ps.batchNumber
+-- Check current stock before update (FIXED: qualified medicationID)
+SELECT ps.medicationID, m.medicationName, ps.quantity, ps.batchNumber
 FROM PharmacyStock ps
 JOIN Medications m ON ps.medicationID = m.medicationID
 WHERE ps.medicationID = 1;
@@ -108,8 +117,8 @@ UPDATE PharmacyStock
 SET quantity = quantity - 10
 WHERE medicationID = 1 AND stockID = 1;
 
--- View the updated stock level
-SELECT medicationID, m.medicationName, ps.quantity, ps.batchNumber
+-- View the updated stock level (FIXED: qualified medicationID)
+SELECT ps.medicationID, m.medicationName, ps.quantity, ps.batchNumber
 FROM PharmacyStock ps
 JOIN Medications m ON ps.medicationID = m.medicationID
 WHERE ps.medicationID = 1;
@@ -233,7 +242,7 @@ ORDER BY
     END,
     appointmentDate;
 
--- Query 2: Low stock pharmacy alert
+-- Query 2: Low stock pharmacy alert (FIXED: qualified medicationID)
 SELECT 
     m.medicationName,
     ps.quantity,

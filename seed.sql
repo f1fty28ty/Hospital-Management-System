@@ -95,9 +95,8 @@ INSERT INTO AdministrativeStaff (administrativeStaffID, departmentID) VALUES
 (9, 9);
 
 -- ============================================================
--- STAGE 4: Patients
+-- STAGE 4: Patients (Original 5)
 -- ============================================================
--- Insert 5 patients with different primary doctors
 
 INSERT INTO Patients (firstName, lastName, DOB, phone, homeAddress, emergencyContactName, emergencyContactPhone, primaryDoctorID) VALUES
 ('Michael', 'Brown', '1987-05-14', '555-1001', '987 Birch St', 'Laura Brown', '555-1002', 4),
@@ -107,7 +106,7 @@ INSERT INTO Patients (firstName, lastName, DOB, phone, homeAddress, emergencyCon
 ('William', 'Anderson', '1965-09-30', '555-1009', '258 Maple Ln', 'Susan Anderson', '555-1010', 5);
 
 -- ============================================================
--- STAGE 5: Appointments
+-- STAGE 5: Appointments (Original 5)
 -- ============================================================
 
 INSERT INTO Appointment (patientID, doctorID, appointmentDate, reason, status) VALUES
@@ -118,7 +117,7 @@ INSERT INTO Appointment (patientID, doctorID, appointmentDate, reason, status) V
 (5, 5, '2025-11-09 15:00:00', 'Post-operative follow-up', 'Completed');
 
 -- ============================================================
--- STAGE 6: Prescriptions
+-- STAGE 6: Prescriptions (Original 5)
 -- ============================================================
 
 INSERT INTO Prescriptions (patientID, doctorID, medicationID, actions) VALUES
@@ -140,7 +139,7 @@ INSERT INTO LabTests (testName, description, cost, startDate, endDate) VALUES
 ('Blood Glucose', 'Fasting blood sugar test', 25.00, '2025-10-01', '2025-10-01');
 
 -- ============================================================
--- STAGE 8: Lab Results
+-- STAGE 8: Lab Results (Original 5)
 -- ============================================================
 
 INSERT INTO LabResults (labTestID, patientID, resultDate, results, performedBy, status) VALUES
@@ -151,7 +150,7 @@ INSERT INTO LabResults (labTestID, patientID, resultDate, results, performedBy, 
 (5, 5, '2025-10-19 08:30:00', 'Fasting glucose: 95 mg/dL - Normal', 2, 'Completed');
 
 -- ============================================================
--- STAGE 9: Medical History
+-- STAGE 9: Medical History (Original 5)
 -- ============================================================
 
 INSERT INTO MedicalHistory (patientID, allergies, immunizations, diagnoses, treatments) VALUES
@@ -162,7 +161,7 @@ INSERT INTO MedicalHistory (patientID, allergies, immunizations, diagnoses, trea
 (5, 'Aspirin', 'Flu (2024), Shingles vaccine', 'Coronary artery disease', 'Stent placement (2020), ongoing medication');
 
 -- ============================================================
--- STAGE 10: Care Plans
+-- STAGE 10: Care Plans (Original 5)
 -- ============================================================
 
 INSERT INTO CarePlan (patientID, diagnosis, treatmentPlan, startDate, endDate) VALUES
@@ -188,7 +187,7 @@ INSERT INTO DoctorSchedule (doctorID, dayOfWeek, startTime, endTime) VALUES
 (8, 'Friday', '2025-11-07 00:00:00', '2025-11-07 12:00:00');
 
 -- ============================================================
--- STAGE 12: Pharmacy Stock
+-- STAGE 12: Pharmacy Stock (Original 10)
 -- ============================================================
 
 INSERT INTO PharmacyStock (medicationID, batchNumber, quantity, expirationDate) VALUES
@@ -204,7 +203,7 @@ INSERT INTO PharmacyStock (medicationID, batchNumber, quantity, expirationDate) 
 (10, 'ASP20251010', 600, '2027-05-15');
 
 -- ============================================================
--- STAGE 13: Invoices and Invoice Items
+-- STAGE 13: Invoices and Invoice Items (Original 5 patients)
 -- ============================================================
 
 -- Invoice for Patient 1 (Michael Brown)
@@ -253,5 +252,233 @@ INSERT INTO InvoiceItem (invoiceID, description, quantity, unitPrice) VALUES
 (5, 'Atorvastatin Prescription', 30, 0.83);
 
 -- ============================================================
+-- ENHANCED DATA - Additional Patients and Records
+-- ============================================================
+
+-- ============================================================
+-- STAGE 14: Additional Patients (6-15)
+-- ============================================================
+
+INSERT INTO Patients (firstName, lastName, DOB, phone, homeAddress, emergencyContactName, emergencyContactPhone, primaryDoctorID) VALUES
+('Emma', 'Thompson', '1992-06-15', '555-2001', '789 Cedar St', 'James Thompson', '555-2002', 4),
+('Oliver', 'Garcia', '1988-11-20', '555-2003', '456 Elm St', 'Maria Garcia', '555-2004', 5),
+('Sophia', 'Rodriguez', '2010-03-08', '555-2005', '123 Willow Ave', 'Pedro Rodriguez', '555-2006', 4),
+('Liam', 'Johnson', '1955-07-25', '555-2007', '890 Pine Rd', 'Elizabeth Johnson', '555-2008', 8),
+('Ava', 'Williams', '1978-09-12', '555-2009', '234 Maple Dr', 'Noah Williams', '555-2010', 5),
+('Ethan', 'Brown', '2015-12-30', '555-2011', '567 Oak Ln', 'Isabella Brown', '555-2012', 4),
+('Mia', 'Jones', '1990-04-18', '555-2013', '678 Birch Way', 'Mason Jones', '555-2014', 8),
+('Noah', 'Miller', '1968-08-03', '555-2015', '789 Spruce Ct', 'Emma Miller', '555-2016', 5),
+('Isabella', 'Davis', '2008-01-22', '555-2017', '890 Cedar Blvd', 'Liam Davis', '555-2018', 4),
+('Lucas', 'Martinez', '1985-05-16', '555-2019', '345 Willow St', 'Olivia Martinez', '555-2020', 8);
+
+-- ============================================================
+-- STAGE 15: Additional Appointments (with varied dates)
+-- ============================================================
+
+INSERT INTO Appointment (patientID, doctorID, appointmentDate, reason, status) VALUES
+-- Today's appointments (using relative dates for demo purposes)
+(6, 4, DATE_ADD(NOW(), INTERVAL 2 HOUR), 'Severe headache and dizziness', 'Scheduled'),
+(7, 5, DATE_ADD(NOW(), INTERVAL 4 HOUR), 'Post-surgery follow-up', 'Scheduled'),
+(8, 4, DATE_ADD(NOW(), INTERVAL 6 HOUR), 'Child wellness check - vaccines', 'Scheduled'),
+(9, 8, DATE_ADD(NOW(), INTERVAL 1 HOUR), 'Chest pain and shortness of breath', 'Scheduled'),
+(10, 5, DATE_ADD(NOW(), INTERVAL 8 HOUR), 'Consultation for knee replacement', 'Scheduled'),
+
+-- This week's appointments
+(11, 4, DATE_ADD(NOW(), INTERVAL 1 DAY), 'Annual physical exam', 'Scheduled'),
+(12, 8, DATE_ADD(NOW(), INTERVAL 2 DAY), 'ICU recovery assessment', 'Scheduled'),
+(13, 5, DATE_ADD(NOW(), INTERVAL 3 DAY), 'Pre-operative consultation', 'Scheduled'),
+(14, 4, DATE_ADD(NOW(), INTERVAL 4 DAY), 'Pediatric allergy testing', 'Scheduled'),
+(15, 8, DATE_ADD(NOW(), INTERVAL 5 DAY), 'Cardiac stress test', 'Scheduled'),
+
+-- Future appointments
+(6, 4, DATE_ADD(NOW(), INTERVAL 10 DAY), 'Follow-up MRI results review', 'Scheduled'),
+(7, 5, DATE_ADD(NOW(), INTERVAL 15 DAY), 'Surgery scheduling', 'Scheduled'),
+(8, 4, DATE_ADD(NOW(), INTERVAL 20 DAY), '6-month pediatric checkup', 'Scheduled'),
+
+-- Completed appointments
+(9, 8, DATE_SUB(NOW(), INTERVAL 2 DAY), 'Emergency admission - stabilized', 'Completed'),
+(10, 5, DATE_SUB(NOW(), INTERVAL 5 DAY), 'Orthopedic consultation completed', 'Completed'),
+(11, 4, DATE_SUB(NOW(), INTERVAL 7 DAY), 'Routine checkup completed', 'Completed'),
+
+-- Cancelled appointments
+(12, 8, DATE_ADD(NOW(), INTERVAL 6 DAY), 'Patient cancelled - rescheduling needed', 'Cancelled'),
+(13, 5, DATE_SUB(NOW(), INTERVAL 1 DAY), 'No-show appointment', 'Cancelled');
+
+-- ============================================================
+-- STAGE 16: Additional Prescriptions
+-- ============================================================
+
+INSERT INTO Prescriptions (patientID, doctorID, medicationID, actions) VALUES
+(6, 4, 3, 'Take one tablet every 8 hours for headache relief'),
+(7, 5, 2, 'Post-surgical antibiotic - take one capsule three times daily for 14 days'),
+(8, 4, 9, 'Use 2 puffs every 4-6 hours as needed for asthma symptoms'),
+(9, 8, 10, 'Take one tablet daily for heart health - blood thinner'),
+(10, 5, 3, 'Take one tablet every 6 hours for post-operative pain'),
+(11, 4, 7, 'Take one capsule daily before breakfast for acid reflux'),
+(12, 8, 5, 'Take one tablet twice daily with meals for blood sugar control'),
+(13, 5, 6, 'Take one tablet at bedtime for cholesterol management'),
+(14, 4, 1, 'Give child 1/2 tablet every 6 hours for fever (max 4 doses per day)'),
+(15, 8, 4, 'Take one tablet each morning for blood pressure control');
+
+-- ============================================================
+-- STAGE 17: Additional Lab Results
+-- ============================================================
+
+INSERT INTO LabResults (labTestID, patientID, resultDate, results, performedBy, status) VALUES
+-- Completed tests
+(1, 6, DATE_SUB(NOW(), INTERVAL 1 DAY), 'WBC: 12.3 (elevated), RBC: 4.9, Hemoglobin: 13.8 - Slight infection indicated', 2, 'Completed'),
+(2, 7, DATE_SUB(NOW(), INTERVAL 3 DAY), 'Post-surgical X-ray shows proper healing, no complications', 2, 'Completed'),
+(3, 9, DATE_SUB(NOW(), INTERVAL 2 DAY), 'Total cholesterol: 245 mg/dL (high), HDL: 42 (low), LDL: 165 (high) - Needs treatment', 2, 'Completed'),
+(4, 10, DATE_SUB(NOW(), INTERVAL 4 DAY), 'pH: 5.8, Specific gravity: 1.020, Trace protein detected', 2, 'Completed'),
+(5, 11, DATE_SUB(NOW(), INTERVAL 6 DAY), 'Fasting glucose: 185 mg/dL - Elevated, diabetic range', 2, 'Completed'),
+
+-- In Progress tests
+(1, 12, NOW(), 'Sample collected, awaiting analysis', 2, 'In Progress'),
+(2, 13, NOW(), 'Imaging in progress', 2, 'In Progress'),
+
+-- Pending tests
+(3, 14, NULL, 'Test scheduled for tomorrow', 2, 'Pending'),
+(4, 15, NULL, 'Sample not yet collected', 2, 'Pending');
+
+-- ============================================================
+-- STAGE 18: Additional Medical History
+-- ============================================================
+
+INSERT INTO MedicalHistory (patientID, allergies, immunizations, diagnoses, treatments) VALUES
+(6, 'Latex, Shellfish', 'Flu (2024), COVID-19 (2023)', 'Migraine disorder, Anxiety', 'Ibuprofen as needed, therapy sessions'),
+(7, 'None known', 'Flu (2024), Tetanus (2023)', 'Recent appendectomy', 'Post-operative care, antibiotics'),
+(8, 'Pollen, Pet dander', 'All childhood vaccines current', 'Asthma, Seasonal allergies', 'Albuterol inhaler, allergy medication'),
+(9, 'Aspirin, NSAIDs', 'Flu (2024), Pneumonia vaccine', 'Coronary artery disease, Hypertension', 'Blood thinners, beta blockers'),
+(10, 'None known', 'Flu (2024), Shingles vaccine', 'Osteoarthritis - knees', 'Pain management, physical therapy'),
+(11, 'Penicillin family', 'Flu (2024), COVID-19 booster (2024)', 'GERD, Mild hypertension', 'Omeprazole, lifestyle modifications'),
+(12, 'None known', 'Flu (2024), All routine vaccines', 'Type 1 Diabetes', 'Insulin therapy, glucose monitoring'),
+(13, 'Sulfa drugs', 'Flu (2024), Hepatitis B', 'High cholesterol, Pre-diabetes', 'Statin therapy, diet control'),
+(14, 'None known', 'Age-appropriate vaccines complete', 'Childhood asthma', 'Rescue inhaler as needed'),
+(15, 'None known', 'Flu (2024), COVID-19 (2023)', 'Atrial fibrillation, Hypertension', 'Blood thinners, rate control medication');
+
+-- ============================================================
+-- STAGE 19: Additional Care Plans
+-- ============================================================
+
+INSERT INTO CarePlan (patientID, diagnosis, treatmentPlan, startDate, endDate) VALUES
+(6, 'Chronic Migraine Disorder', 'Trigger identification, preventive medication trial, stress management techniques. Monthly follow-ups.', DATE_SUB(NOW(), INTERVAL 30 DAY), DATE_ADD(NOW(), INTERVAL 150 DAY)),
+(7, 'Post-Appendectomy Care', 'Wound care, antibiotic course completion, gradual activity increase. Follow-up in 2 weeks.', DATE_SUB(NOW(), INTERVAL 10 DAY), DATE_ADD(NOW(), INTERVAL 20 DAY)),
+(8, 'Pediatric Asthma Management', 'Identify triggers, proper inhaler technique training, action plan for exacerbations. Quarterly reviews.', DATE_SUB(NOW(), INTERVAL 60 DAY), DATE_ADD(NOW(), INTERVAL 300 DAY)),
+(9, 'Cardiac Disease Management', 'Medication adherence, cardiac rehab program, dietary modifications, stress reduction. Weekly monitoring initially.', DATE_SUB(NOW(), INTERVAL 5 DAY), DATE_ADD(NOW(), INTERVAL 175 DAY)),
+(10, 'Pre-Surgical Preparation', 'Weight optimization, physical therapy, medication review, surgical risk assessment. Surgery in 6 weeks.', NOW(), DATE_ADD(NOW(), INTERVAL 60 DAY)),
+(11, 'GERD and Hypertension Management', 'Dietary changes, weight loss program, medication optimization. Bi-monthly follow-ups.', DATE_SUB(NOW(), INTERVAL 90 DAY), DATE_ADD(NOW(), INTERVAL 270 DAY)),
+(12, 'Type 1 Diabetes Control', 'Insulin pump training, continuous glucose monitoring, nutritional counseling. Weekly check-ins.', DATE_SUB(NOW(), INTERVAL 180 DAY), DATE_ADD(NOW(), INTERVAL 180 DAY)),
+(15, 'Atrial Fibrillation Management', 'Rate control, anticoagulation monitoring, lifestyle modifications. Monthly INR checks.', DATE_SUB(NOW(), INTERVAL 45 DAY), DATE_ADD(NOW(), INTERVAL 315 DAY));
+
+-- ============================================================
+-- STAGE 20: Additional Pharmacy Stock (Low Stock Items)
+-- ============================================================
+
+INSERT INTO PharmacyStock (medicationID, batchNumber, quantity, expirationDate) VALUES
+-- Low stock items for demo
+(1, 'PAR20251101', 45, '2026-11-15'),   -- Low stock
+(2, 'AMX20251102', 30, '2026-10-20'),   -- Critical low stock
+(3, 'IBU20251103', 85, '2026-12-10'),   -- Low stock
+(9, 'ALB20251109', 25, '2026-08-05'),   -- Critical low stock
+
+-- Expiring soon items
+(4, 'LIS20251104', 150, DATE_ADD(NOW(), INTERVAL 60 DAY)),  -- Expiring in 60 days
+(5, 'MET20251105', 200, DATE_ADD(NOW(), INTERVAL 75 DAY)),  -- Expiring in 75 days
+(7, 'OME20251107', 90, DATE_ADD(NOW(), INTERVAL 45 DAY));   -- Expiring in 45 days
+
+-- ============================================================
+-- STAGE 21: Additional Invoices (Unpaid and Pending)
+-- ============================================================
+
+-- Unpaid invoices
+INSERT INTO Invoice (patientID, invoiceDate, totalAmount, amountPaid, status) VALUES
+(6, DATE_SUB(NOW(), INTERVAL 2 DAY), 425.00, 0.00, 'Unpaid'),
+(9, DATE_SUB(NOW(), INTERVAL 3 DAY), 1850.00, 0.00, 'Unpaid'),
+(12, DATE_SUB(NOW(), INTERVAL 5 DAY), 320.00, 0.00, 'Unpaid');
+
+INSERT INTO InvoiceItem (invoiceID, description, quantity, unitPrice) VALUES
+-- Invoice for patient 6
+(6, 'Complete Blood Count (CBC)', 1, 50.00),
+(6, 'MRI Scan - Head', 1, 350.00),
+(6, 'Ibuprofen Prescription', 30, 0.83),
+
+-- Invoice for patient 9 (Emergency - high cost)
+(7, 'Emergency Room Visit', 1, 750.00),
+(7, 'Chest X-Ray', 1, 100.00),
+(7, 'ECG', 1, 200.00),
+(7, 'Blood Work Panel', 1, 150.00),
+(7, 'Lipid Panel', 1, 75.00),
+(7, 'IV Fluids and Medications', 1, 500.00),
+(7, 'Emergency Physician Consultation', 1, 75.00),
+
+-- Invoice for patient 12
+(8, 'Diabetes Management Consultation', 1, 200.00),
+(8, 'Blood Glucose Test', 1, 25.00),
+(8, 'HbA1C Test', 1, 75.00),
+(8, 'Metformin Prescription', 90, 0.22);
+
+-- Pending invoices (partially paid)
+INSERT INTO Invoice (patientID, invoiceDate, totalAmount, amountPaid, status) VALUES
+(7, DATE_SUB(NOW(), INTERVAL 4 DAY), 650.00, 300.00, 'Pending'),
+(10, DATE_SUB(NOW(), INTERVAL 6 DAY), 450.00, 200.00, 'Pending'),
+(11, DATE_SUB(NOW(), INTERVAL 8 DAY), 275.00, 100.00, 'Pending');
+
+INSERT INTO InvoiceItem (invoiceID, description, quantity, unitPrice) VALUES
+-- Invoice for patient 7
+(9, 'Post-Surgical Follow-up', 1, 150.00),
+(9, 'Wound Care Supplies', 1, 50.00),
+(9, 'Chest X-Ray', 1, 100.00),
+(9, 'Amoxicillin Prescription', 42, 0.83),
+(9, 'Pain Medication', 60, 5.00),
+
+-- Invoice for patient 10
+(10, 'Orthopedic Consultation', 1, 250.00),
+(10, 'Knee X-Ray (bilateral)', 1, 150.00),
+(10, 'Ibuprofen Prescription', 60, 0.83),
+
+-- Invoice for patient 11
+(11, 'Routine Physical Exam', 1, 150.00),
+(11, 'Blood Glucose Test', 1, 25.00),
+(11, 'Urinalysis', 1, 30.00),
+(11, 'Omeprazole Prescription', 30, 2.33);
+
+-- Paid invoices (recent)
+INSERT INTO Invoice (patientID, invoiceDate, totalAmount, amountPaid, status) VALUES
+(8, DATE_SUB(NOW(), INTERVAL 7 DAY), 180.00, 180.00, 'Paid'),
+(13, DATE_SUB(NOW(), INTERVAL 9 DAY), 225.00, 225.00, 'Paid'),
+(14, DATE_SUB(NOW(), INTERVAL 10 DAY), 125.00, 125.00, 'Paid');
+
+INSERT INTO InvoiceItem (invoiceID, description, quantity, unitPrice) VALUES
+-- Invoice for patient 8
+(12, 'Pediatric Wellness Visit', 1, 100.00),
+(12, 'Immunizations (2)', 2, 40.00),
+
+-- Invoice for patient 13
+(13, 'Pre-Surgical Consultation', 1, 200.00),
+(13, 'Lab Work Panel', 1, 75.00),
+
+-- Invoice for patient 14
+(14, 'Allergy Testing', 1, 100.00),
+(14, 'Paracetamol Prescription', 20, 1.25);
+
+-- ============================================================
 -- END OF SEED DATA
+-- ============================================================
+-- Summary of data:
+-- - Departments: 9
+-- - Rooms: 9
+-- - Medications: 10
+-- - Employees: 9
+-- - Employee Extensions: 9 (various roles)
+-- - Patients: 15
+-- - Appointments: 23 (various statuses and priorities)
+-- - Prescriptions: 15
+-- - Lab Tests: 5
+-- - Lab Results: 14 (various statuses)
+-- - Medical History: 15
+-- - Care Plans: 13
+-- - Doctor Schedules: 9
+-- - Pharmacy Stock: 17 (including low stock items)
+-- - Invoices: 14 (Paid, Unpaid, Pending)
+-- - Invoice Items: 35+
 -- ============================================================
